@@ -26,10 +26,16 @@ import { Route as AppStudentsRouteImport } from './routes/_app.students'
 import { Route as AppWorkspaceRouteImport } from './routes/_app.workspace'
 import { Route as SkillAiApplyRouteImport } from './routes/skill-ai.apply'
 import { Route as AppAcademicIndexRouteImport } from './routes/_app.academic.index'
+import { Route as AppAcademicAnnouncementsRouteImport } from './routes/_app.academic.announcements'
+import { Route as AppAcademicAttendanceRouteImport } from './routes/_app.academic.attendance'
 import { Route as AppAcademicAuditRouteImport } from './routes/_app.academic.audit'
+import { Route as AppAcademicCareRouteImport } from './routes/_app.academic.care'
+import { Route as AppAcademicGradebookRouteImport } from './routes/_app.academic.gradebook'
 import { Route as AppAcademicReportsRouteImport } from './routes/_app.academic.reports'
+import { Route as AppAcademicSettingsRouteImport } from './routes/_app.academic.settings'
 import { Route as AppAcademicStudentsRouteImport } from './routes/_app.academic.students'
 import { Route as AppAcademicTaskRouteImport } from './routes/_app.academic.task'
+import { Route as AppAcademicTimetableRouteImport } from './routes/_app.academic.timetable'
 import { Route as AppAdmissionIndexRouteImport } from './routes/_app.admission.index'
 import { Route as AppAdmissionApplicationsRouteImport } from './routes/_app.admission.applications'
 import { Route as AppAdmissionEnrollmentRouteImport } from './routes/_app.admission.enrollment'
@@ -146,14 +152,40 @@ const AppAcademicIndexRoute = AppAcademicIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppAcademicRoute,
 } as any)
+const AppAcademicAnnouncementsRoute =
+  AppAcademicAnnouncementsRouteImport.update({
+    id: '/announcements',
+    path: '/announcements',
+    getParentRoute: () => AppAcademicRoute,
+  } as any)
+const AppAcademicAttendanceRoute = AppAcademicAttendanceRouteImport.update({
+  id: '/attendance',
+  path: '/attendance',
+  getParentRoute: () => AppAcademicRoute,
+} as any)
 const AppAcademicAuditRoute = AppAcademicAuditRouteImport.update({
   id: '/audit',
   path: '/audit',
   getParentRoute: () => AppAcademicRoute,
 } as any)
+const AppAcademicCareRoute = AppAcademicCareRouteImport.update({
+  id: '/care',
+  path: '/care',
+  getParentRoute: () => AppAcademicRoute,
+} as any)
+const AppAcademicGradebookRoute = AppAcademicGradebookRouteImport.update({
+  id: '/gradebook',
+  path: '/gradebook',
+  getParentRoute: () => AppAcademicRoute,
+} as any)
 const AppAcademicReportsRoute = AppAcademicReportsRouteImport.update({
   id: '/reports',
   path: '/reports',
+  getParentRoute: () => AppAcademicRoute,
+} as any)
+const AppAcademicSettingsRoute = AppAcademicSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => AppAcademicRoute,
 } as any)
 const AppAcademicStudentsRoute = AppAcademicStudentsRouteImport.update({
@@ -164,6 +196,11 @@ const AppAcademicStudentsRoute = AppAcademicStudentsRouteImport.update({
 const AppAcademicTaskRoute = AppAcademicTaskRouteImport.update({
   id: '/task',
   path: '/task',
+  getParentRoute: () => AppAcademicRoute,
+} as any)
+const AppAcademicTimetableRoute = AppAcademicTimetableRouteImport.update({
+  id: '/timetable',
+  path: '/timetable',
   getParentRoute: () => AppAcademicRoute,
 } as any)
 const AppAdmissionIndexRoute = AppAdmissionIndexRouteImport.update({
@@ -340,10 +377,16 @@ export interface FileRoutesByFullPath {
   '/students': typeof AppStudentsRoute
   '/workspace': typeof AppWorkspaceRoute
   '/skill-ai/apply': typeof SkillAiApplyRoute
+  '/academic/announcements': typeof AppAcademicAnnouncementsRoute
+  '/academic/attendance': typeof AppAcademicAttendanceRoute
   '/academic/audit': typeof AppAcademicAuditRoute
+  '/academic/care': typeof AppAcademicCareRoute
+  '/academic/gradebook': typeof AppAcademicGradebookRoute
   '/academic/reports': typeof AppAcademicReportsRoute
+  '/academic/settings': typeof AppAcademicSettingsRoute
   '/academic/students': typeof AppAcademicStudentsRoute
   '/academic/task': typeof AppAcademicTaskRoute
+  '/academic/timetable': typeof AppAcademicTimetableRoute
   '/admission/applications': typeof AppAdmissionApplicationsRoute
   '/admission/enrollment': typeof AppAdmissionEnrollmentRoute
   '/admission/fees': typeof AppAdmissionFeesRoute
@@ -389,10 +432,16 @@ export interface FileRoutesByTo {
   '/workspace': typeof AppWorkspaceRoute
   '/skill-ai/apply': typeof SkillAiApplyRoute
   '/': typeof AppIndexRoute
+  '/academic/announcements': typeof AppAcademicAnnouncementsRoute
+  '/academic/attendance': typeof AppAcademicAttendanceRoute
   '/academic/audit': typeof AppAcademicAuditRoute
+  '/academic/care': typeof AppAcademicCareRoute
+  '/academic/gradebook': typeof AppAcademicGradebookRoute
   '/academic/reports': typeof AppAcademicReportsRoute
+  '/academic/settings': typeof AppAcademicSettingsRoute
   '/academic/students': typeof AppAcademicStudentsRoute
   '/academic/task': typeof AppAcademicTaskRoute
+  '/academic/timetable': typeof AppAcademicTimetableRoute
   '/admission/applications': typeof AppAdmissionApplicationsRoute
   '/admission/enrollment': typeof AppAdmissionEnrollmentRoute
   '/admission/fees': typeof AppAdmissionFeesRoute
@@ -442,10 +491,16 @@ export interface FileRoutesById {
   '/_app/workspace': typeof AppWorkspaceRoute
   '/skill-ai/apply': typeof SkillAiApplyRoute
   '/_app/': typeof AppIndexRoute
+  '/_app/academic/announcements': typeof AppAcademicAnnouncementsRoute
+  '/_app/academic/attendance': typeof AppAcademicAttendanceRoute
   '/_app/academic/audit': typeof AppAcademicAuditRoute
+  '/_app/academic/care': typeof AppAcademicCareRoute
+  '/_app/academic/gradebook': typeof AppAcademicGradebookRoute
   '/_app/academic/reports': typeof AppAcademicReportsRoute
+  '/_app/academic/settings': typeof AppAcademicSettingsRoute
   '/_app/academic/students': typeof AppAcademicStudentsRoute
   '/_app/academic/task': typeof AppAcademicTaskRoute
+  '/_app/academic/timetable': typeof AppAcademicTimetableRoute
   '/_app/admission/applications': typeof AppAdmissionApplicationsRoute
   '/_app/admission/enrollment': typeof AppAdmissionEnrollmentRoute
   '/_app/admission/fees': typeof AppAdmissionFeesRoute
@@ -497,10 +552,16 @@ export interface FileRouteTypes {
     | '/students'
     | '/workspace'
     | '/skill-ai/apply'
+    | '/academic/announcements'
+    | '/academic/attendance'
     | '/academic/audit'
+    | '/academic/care'
+    | '/academic/gradebook'
     | '/academic/reports'
+    | '/academic/settings'
     | '/academic/students'
     | '/academic/task'
+    | '/academic/timetable'
     | '/admission/applications'
     | '/admission/enrollment'
     | '/admission/fees'
@@ -546,10 +607,16 @@ export interface FileRouteTypes {
     | '/workspace'
     | '/skill-ai/apply'
     | '/'
+    | '/academic/announcements'
+    | '/academic/attendance'
     | '/academic/audit'
+    | '/academic/care'
+    | '/academic/gradebook'
     | '/academic/reports'
+    | '/academic/settings'
     | '/academic/students'
     | '/academic/task'
+    | '/academic/timetable'
     | '/admission/applications'
     | '/admission/enrollment'
     | '/admission/fees'
@@ -598,10 +665,16 @@ export interface FileRouteTypes {
     | '/_app/workspace'
     | '/skill-ai/apply'
     | '/_app/'
+    | '/_app/academic/announcements'
+    | '/_app/academic/attendance'
     | '/_app/academic/audit'
+    | '/_app/academic/care'
+    | '/_app/academic/gradebook'
     | '/_app/academic/reports'
+    | '/_app/academic/settings'
     | '/_app/academic/students'
     | '/_app/academic/task'
+    | '/_app/academic/timetable'
     | '/_app/admission/applications'
     | '/_app/admission/enrollment'
     | '/_app/admission/fees'
@@ -762,6 +835,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppAcademicIndexRouteImport
       parentRoute: typeof AppAcademicRoute
     }
+    '/_app/academic/announcements': {
+      id: '/_app/academic/announcements'
+      path: '/announcements'
+      fullPath: '/academic/announcements'
+      preLoaderRoute: typeof AppAcademicAnnouncementsRouteImport
+      parentRoute: typeof AppAcademicRoute
+    }
+    '/_app/academic/attendance': {
+      id: '/_app/academic/attendance'
+      path: '/attendance'
+      fullPath: '/academic/attendance'
+      preLoaderRoute: typeof AppAcademicAttendanceRouteImport
+      parentRoute: typeof AppAcademicRoute
+    }
     '/_app/academic/audit': {
       id: '/_app/academic/audit'
       path: '/audit'
@@ -769,11 +856,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppAcademicAuditRouteImport
       parentRoute: typeof AppAcademicRoute
     }
+    '/_app/academic/care': {
+      id: '/_app/academic/care'
+      path: '/care'
+      fullPath: '/academic/care'
+      preLoaderRoute: typeof AppAcademicCareRouteImport
+      parentRoute: typeof AppAcademicRoute
+    }
+    '/_app/academic/gradebook': {
+      id: '/_app/academic/gradebook'
+      path: '/gradebook'
+      fullPath: '/academic/gradebook'
+      preLoaderRoute: typeof AppAcademicGradebookRouteImport
+      parentRoute: typeof AppAcademicRoute
+    }
     '/_app/academic/reports': {
       id: '/_app/academic/reports'
       path: '/reports'
       fullPath: '/academic/reports'
       preLoaderRoute: typeof AppAcademicReportsRouteImport
+      parentRoute: typeof AppAcademicRoute
+    }
+    '/_app/academic/settings': {
+      id: '/_app/academic/settings'
+      path: '/settings'
+      fullPath: '/academic/settings'
+      preLoaderRoute: typeof AppAcademicSettingsRouteImport
       parentRoute: typeof AppAcademicRoute
     }
     '/_app/academic/students': {
@@ -788,6 +896,13 @@ declare module '@tanstack/react-router' {
       path: '/task'
       fullPath: '/academic/task'
       preLoaderRoute: typeof AppAcademicTaskRouteImport
+      parentRoute: typeof AppAcademicRoute
+    }
+    '/_app/academic/timetable': {
+      id: '/_app/academic/timetable'
+      path: '/timetable'
+      fullPath: '/academic/timetable'
+      preLoaderRoute: typeof AppAcademicTimetableRouteImport
       parentRoute: typeof AppAcademicRoute
     }
     '/_app/admission/': {
@@ -1011,18 +1126,30 @@ declare module '@tanstack/react-router' {
 }
 
 interface AppAcademicRouteChildren {
+  AppAcademicAnnouncementsRoute: typeof AppAcademicAnnouncementsRoute
+  AppAcademicAttendanceRoute: typeof AppAcademicAttendanceRoute
   AppAcademicAuditRoute: typeof AppAcademicAuditRoute
+  AppAcademicCareRoute: typeof AppAcademicCareRoute
+  AppAcademicGradebookRoute: typeof AppAcademicGradebookRoute
   AppAcademicReportsRoute: typeof AppAcademicReportsRoute
+  AppAcademicSettingsRoute: typeof AppAcademicSettingsRoute
   AppAcademicStudentsRoute: typeof AppAcademicStudentsRoute
   AppAcademicTaskRoute: typeof AppAcademicTaskRoute
+  AppAcademicTimetableRoute: typeof AppAcademicTimetableRoute
   AppAcademicIndexRoute: typeof AppAcademicIndexRoute
 }
 
 const AppAcademicRouteChildren: AppAcademicRouteChildren = {
+  AppAcademicAnnouncementsRoute: AppAcademicAnnouncementsRoute,
+  AppAcademicAttendanceRoute: AppAcademicAttendanceRoute,
   AppAcademicAuditRoute: AppAcademicAuditRoute,
+  AppAcademicCareRoute: AppAcademicCareRoute,
+  AppAcademicGradebookRoute: AppAcademicGradebookRoute,
   AppAcademicReportsRoute: AppAcademicReportsRoute,
+  AppAcademicSettingsRoute: AppAcademicSettingsRoute,
   AppAcademicStudentsRoute: AppAcademicStudentsRoute,
   AppAcademicTaskRoute: AppAcademicTaskRoute,
+  AppAcademicTimetableRoute: AppAcademicTimetableRoute,
   AppAcademicIndexRoute: AppAcademicIndexRoute,
 }
 
