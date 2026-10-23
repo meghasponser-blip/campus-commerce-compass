@@ -43,6 +43,13 @@
       "when": 1792734146398,
       "tag": "0005_rush_hub_schema",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1792735276528,
+      "tag": "0006_ensure_app_state_anon",
+      "breakpoints": true
     }
   ]
 }
