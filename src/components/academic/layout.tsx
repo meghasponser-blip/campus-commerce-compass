@@ -1,14 +1,12 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect } from "react";
 import { Link, Outlet, useNavigate, useRouterState } from "@tanstack/react-router";
 import {
   LayoutDashboard, GraduationCap, ListTodo, CalendarDays, ClipboardCheck, BookOpenCheck,
-  HeartHandshake, Megaphone, FileBarChart2, ShieldCheck, Settings2, Search, Sun, Moon,
-  RotateCcw, Command as CommandIcon, X,
+  HeartHandshake, Megaphone, FileBarChart2, ShieldCheck, Settings2,
+  RotateCcw,
 } from "lucide-react";
-import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator } from "@/components/ui/command";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
-import { useTheme } from "@/hooks/use-theme";
 import { AcademicProvider, useAcademic, personaCan, PERSONAS, type Persona } from "./store";
 
 const NAV: { to: string; label: string; icon: React.ComponentType<{ className?: string }>; exact?: boolean }[] = [
@@ -36,10 +34,7 @@ export function AcademicLayout() {
 function AcademicShell() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const navigate = useNavigate();
-  const { persona, setPersona, students, tasks, slots, settings, resetDemo } = useAcademic();
-  const { theme, toggle } = useTheme();
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [query, setQuery] = useState("");
+  const { persona, setPersona, settings, resetDemo } = useAcademic();
 
   const today = new Date().toLocaleDateString("en-IN", {
     weekday: "long", day: "numeric", month: "long", year: "numeric",
@@ -50,41 +45,6 @@ function AcademicShell() {
   useEffect(() => {
     if (!allowed) navigate({ to: "/academic", replace: true });
   }, [allowed, navigate]);
-
-  useEffect(() => {
-    const down = (e: KeyboardEvent) => {
-      if ((e.key === "k" || e.key === "K") && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault();
-        setSearchOpen((o) => !o);
-      }
-    };
-    document.addEventListener("keydown", down);
-    return () => document.removeEventListener("keydown", down);
-  }, []);
-
-  const q = query.trim().toLowerCase();
-  const studentHits = useMemo(
-    () => (q.length < 2 ? [] : students.filter((s) => s.name.toLowerCase().includes(q) || s.id.toLowerCase().includes(q)).slice(0, 6)),
-    [q, students],
-  );
-  const taskHits = useMemo(
-    () => (q.length < 2 ? [] : tasks.filter((t) => t.title.toLowerCase().includes(q)).slice(0, 5)),
-    [q, tasks],
-  );
-  const slotHits = useMemo(
-    () => (q.length < 2 ? [] : slots.filter((s) => `${s.subject} ${s.instructor} ${s.room} ${s.course}`.toLowerCase().includes(q)).slice(0, 5)),
-    [q, slots],
-  );
-  const pageHits = useMemo(
-    () => NAV.filter((n) => n.label.toLowerCase().includes(q) && personaCan(persona, n.to)),
-    [q, persona],
-  );
-
-  const go = (to: string) => {
-    setSearchOpen(false);
-    setQuery("");
-    navigate({ to });
-  };
 
   const info = PERSONAS.find((p) => p.id === persona)!;
 
@@ -135,37 +95,12 @@ function AcademicShell() {
           <div className="text-sm text-muted-foreground truncate">{today}</div>
           <div className="flex items-center gap-2">
             <button
-              onClick={() => setSearchOpen(true)}
-              aria-label="Open spotlight search"
-              className="hidden sm:flex h-9 items-center gap-2 rounded-md border border-border bg-background px-3 text-sm text-muted-foreground hover:bg-muted w-52"
-            >
-              <Search className="size-4" />
-              <span className="flex-1 text-left">Search…</span>
-              <kbd className="text-[10px] font-mono bg-muted px-1.5 py-0.5 rounded border border-border">⌘K</kbd>
-            </button>
-            <button
-              onClick={() => setSearchOpen(true)}
-              aria-label="Open spotlight search"
-              className="sm:hidden h-9 w-9 grid place-items-center rounded-md border border-border bg-background hover:bg-muted"
-            >
-              <Search className="size-4" />
-            </button>
-            <button
               onClick={() => { resetDemo(); }}
               title="Reset demo data"
               aria-label="Reset demo data"
               className="h-9 w-9 grid place-items-center rounded-md border border-border bg-background hover:bg-muted"
             >
               <RotateCcw className="size-4" />
-            </button>
-            <button
-              onClick={toggle}
-              title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-              aria-label="Toggle theme"
-              className="h-9 w-9 grid place-items-center rounded-md border border-border bg-background hover:bg-muted overflow-hidden"
-            >
-              <Sun className={cn("size-4 transition-all duration-300", theme === "dark" ? "-rotate-90 scale-0 absolute" : "rotate-0 scale-100")} />
-              <Moon className={cn("size-4 transition-all duration-300", theme === "dark" ? "rotate-0 scale-100" : "rotate-90 scale-0 absolute")} />
             </button>
             <select
               aria-label="Active persona"
@@ -217,71 +152,6 @@ function AcademicShell() {
           );
         })}
       </nav>
-
-      <CommandDialog open={searchOpen} onOpenChange={setSearchOpen}>
-        <CommandInput placeholder="Search students, tasks, timetable, pages…" value={query} onValueChange={setQuery} />
-        <CommandList>
-          <CommandEmpty>No results found.</CommandEmpty>
-          {pageHits.length > 0 && (
-            <>
-              <CommandGroup heading="Pages">
-                {pageHits.map((p) => (
-                  <CommandItem key={p.to} value={`page ${p.label}`} onSelect={() => go(p.to)}>
-                    <p.icon className="size-4 text-muted-foreground" /> {p.label}
-                  </CommandItem>
-                ))}
-              </CommandGroup>
-              <CommandSeparator />
-            </>
-          )}
-          {studentHits.length > 0 && (
-            <>
-              <CommandGroup heading="Students">
-                {studentHits.map((s) => (
-                  <CommandItem key={s.id} value={`student ${s.name} ${s.id}`} onSelect={() => go(`/academic/students?s=${s.id}`)}>
-                    <GraduationCap className="size-4 text-muted-foreground" /> {s.name} <span className="ml-auto font-mono text-xs text-muted-foreground">{s.id}</span>
-                  </CommandItem>
-                ))}
-              </CommandGroup>
-              <CommandSeparator />
-            </>
-          )}
-          {taskHits.length > 0 && (
-            <>
-              <CommandGroup heading="Tasks">
-                {taskHits.map((t) => (
-                  <CommandItem key={t.id} value={`task ${t.title}`} onSelect={() => go(`/academic/task?t=${t.id}`)}>
-                    <ListTodo className="size-4 text-muted-foreground" /> {t.title}
-                  </CommandItem>
-                ))}
-              </CommandGroup>
-              <CommandSeparator />
-            </>
-          )}
-          {slotHits.length > 0 && (
-            <CommandGroup heading="Timetable">
-              {slotHits.map((s) => (
-                <CommandItem key={s.id} value={`slot ${s.subject} ${s.instructor} ${s.room}`} onSelect={() => go("/academic/timetable")}>
-                  <CalendarDays className="size-4 text-muted-foreground" /> {s.subject} · {s.instructor} · {s.room}
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          )}
-          <CommandSeparator />
-          <CommandGroup heading="Actions">
-            <CommandItem value="reset demo data" onSelect={() => { setSearchOpen(false); resetDemo(); }}>
-              <RotateCcw className="size-4 text-muted-foreground" /> Reset demo data
-            </CommandItem>
-            <CommandItem value="toggle dark mode" onSelect={() => { setSearchOpen(false); toggle(); }}>
-              {theme === "dark" ? <Sun className="size-4 text-muted-foreground" /> : <Moon className="size-4 text-muted-foreground" />} Switch to {theme === "dark" ? "light" : "dark"} mode
-            </CommandItem>
-          </CommandGroup>
-        </CommandList>
-        <div className="flex items-center justify-between px-4 py-2 border-t border-border text-[11px] text-muted-foreground">
-          <span className="flex items-center gap-1"><CommandIcon className="size-3" /> Spotlight search</span>
-          <span className="flex items-center gap-1"><kbd className="font-mono">Esc</kbd> to close <X className="size-3" /></span>
-        </div>
-      </CommandDialog>
     </div>
   );
 }
