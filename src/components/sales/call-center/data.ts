@@ -65,7 +65,7 @@ export async function listReportLeads({ data }: { data: { from?: string | null; 
   const s = await read(); return s.leads.filter(l => (!data.from || l.created_at >= data.from) && (!data.to || l.created_at <= data.to) && (!data.status || l.status === data.status) && (!data.agentId || l.assigned_to === data.agentId) && (!data.source || l.source?.toLowerCase().includes(data.source.toLowerCase()))).map(l => ({ ...l, assigned_name: s.agents.find(a => a.id === l.assigned_to)?.full_name ?? null }));
 }
 export async function getAgentSummary() {
-  const s = await read(); return s.agents.map(a => { const leads = s.leads.filter(l => l.assigned_to === a.id); return { agentId: a.id, name: a.full_name, email: a.email, total: leads.length, ...Object.fromEntries(['new','vv','48','will','sd','parents','lc','nr','ni'].map(status => [status, leads.filter(l => l.status === status).length])) }; });
+  const s = await read(); return s.agents.map(a => { const leads = s.leads.filter(l => l.assigned_to === a.id); const count = (status: LeadStatus) => leads.filter(l => l.status === status).length; return { agentId: a.id, name: a.full_name, email: a.email, total: leads.length, new: count('new'), vv: count('vv'), '48': count('48'), will: count('will'), sd: count('sd'), parents: count('parents'), lc: count('lc'), nr: count('nr'), ni: count('ni') }; });
 }
 export async function getAnalytics() {
   const { leads, agents } = await read();
