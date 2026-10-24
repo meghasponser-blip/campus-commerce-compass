@@ -1,5 +1,6 @@
 # Roadmap
 
+- [in-progress] Add admin-data-sync-fix repository application to the Sales menu, preserving current Sales pages
 - [in-progress] Clone rush-this repo into project, enable Lovable Cloud, apply repo migrations (done)
 - [in-progress] Wire Skill AI admissions into Sales: routes created (/sales/application, /sales/applications, /sales/applications/$id, /sales/finance, /sales/form-builder, public /skill-ai/apply)
 - [todo] Add Admissions entries to Sales menu (tab bar + sidebar) — user asked while on /sales/leads
