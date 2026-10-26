@@ -26,14 +26,14 @@ export function AgentLeadsPage() {
   const fetchLeads = listMyLeads;
   const doUpdate = updateLeadStatus;
   const doLogCall = logLeadCall;
-  const { data: leads } = useSuspenseQuery({ queryKey: ["call-center", "leads", "mine"], queryFn: () => fetchLeads() });
+  const { data: leads } = useSuspenseQuery({ queryKey: ["call-center", "leads", "mine", agentId], queryFn: () => { selectAgent(agentId); return fetchLeads(); } });
 
   const mut = useMutation({
     mutationFn: (v: { leadId: string; status: (typeof STATUSES)[number] }) =>
       doUpdate({ data: v }),
     onSuccess: () => {
       toast.success("Status updated");
-      qc.invalidateQueries({ queryKey: ["call-center", "leads"] });
+      qc.invalidateQueries({ queryKey: ["call-center"] });
     },
     onError: (e: Error) => toast.error(e.message),
   });
@@ -104,8 +104,8 @@ export function AgentLeadsPage() {
                         aria-label={`Call ${l.name} at ${l.phone}`}
                         onClick={() => {
                           doLogCall({ data: { leadId: l.id } })
-                            .then(() => qc.invalidateQueries({ queryKey: ["call-center", "leads"] }))
-                            .catch(() => {});
+                            .then(() => qc.invalidateQueries({ queryKey: ["call-center"] }))
+                            .catch((error: Error) => toast.error(error.message));
                         }}
                         className="inline-flex items-center gap-2 rounded-lg bg-primary   px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-md transition active:scale-95 hover:shadow-lg hover:brightness-110"
                       >

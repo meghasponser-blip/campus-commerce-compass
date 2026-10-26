@@ -12,13 +12,14 @@ export const Route = createFileRoute("/_app/sales")({
 });
 
 const TABS: {
-  to: "/sales" | "/sales/agents" | "/sales/leads" | "/sales/applications" | "/sales/finance" | "/sales/form-builder";
+  to: "/sales" | "/sales/agents" | "/sales/leads" | "/sales/applications" | "/sales/finance" | "/sales/form-builder" | "/sales/call-center";
   label: string;
   exact?: boolean;
 }[] = [
   { to: "/sales", label: "Dashboard", exact: true },
   { to: "/sales/agents", label: "Agents" },
   { to: "/sales/leads", label: "Lead Pool" },
+  { to: "/sales/call-center", label: "Call Center" },
   { to: "/sales/applications", label: "Skill AI Admissions" },
   { to: "/sales/finance", label: "Finance Desk" },
   { to: "/sales/form-builder", label: "Form Builder" },
@@ -68,8 +69,8 @@ function SalesLayout() {
         </nav>
       </div>
       <div className="flex">
-        <AgentSideNav />
-        <div className="flex-1 min-w-0 pl-6">
+        {!pathname.startsWith("/sales/call-center") && <AgentSideNav />}
+        <div className={cn("flex-1 min-w-0", !pathname.startsWith("/sales/call-center") && "pl-6")}>
           <Outlet />
         </div>
       </div>

@@ -55,7 +55,7 @@ export function UploadPage() {
       setRows([]);
       setFileName(null);
       if (inputRef.current) inputRef.current.value = "";
-      qc.invalidateQueries({ queryKey: ["call-center", "leads"] });
+      qc.invalidateQueries({ queryKey: ["call-center"] });
     },
     onError: (e: Error) => toast.error(e.message),
   });

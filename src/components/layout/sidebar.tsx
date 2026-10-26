@@ -25,6 +25,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useAuth, canAccess } from "@/lib/auth";
 import { ShieldCheck } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 type Item = {
   to: string;
@@ -64,6 +65,12 @@ const NAV: Item[] = [
       { to: "/sales", label: "Dashboard" },
       { to: "/sales/agents", label: "Agents" },
       { to: "/sales/leads", label: "Lead Pool" },
+      { to: "/sales/call-center", label: "Call Center" },
+      { to: "/sales/call-center/upload", label: "Call Center · Upload Leads" },
+      { to: "/sales/call-center/leads", label: "Call Center · Assign Leads" },
+      { to: "/sales/call-center/my-leads", label: "Call Center · Agent Leads" },
+      { to: "/sales/call-center/agents", label: "Call Center · Manage Agents" },
+      { to: "/sales/call-center/reports", label: "Call Center · Reports" },
       { to: "/sales/applications", label: "Skill AI Admissions" },
       { to: "/sales/finance", label: "Finance Desk" },
       { to: "/sales/form-builder", label: "Form Builder" },
@@ -122,7 +129,7 @@ export function Sidebar() {
           if (hasChildren) {
             return (
               <div key={item.to}>
-                <button
+                 <Button variant="ghost"
                   onClick={() => setOpen((o) => ({ ...o, [item.to]: !isOpen }))}
                   className={cn(
                     "w-full group flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
@@ -134,11 +141,11 @@ export function Sidebar() {
                   <Icon className={cn("size-[18px] shrink-0", active && "text-primary")} />
                   <span className="flex-1 truncate text-left">{item.label}</span>
                   <ChevronDown className={cn("size-3.5 transition-transform", isOpen && "rotate-180")} />
-                </button>
+                 </Button>
                 {isOpen && (
                   <div className="mt-0.5 ml-5 pl-3 border-l border-sidebar-border space-y-0.5">
-                    {item.children!.map((c) => {
-                      const cActive = pathname === c.to || (c.to !== item.to && pathname.startsWith(c.to));
+                     {item.children?.map((c) => {
+                       const cActive = pathname === c.to;
                       return (
                         <Link
                           key={c.to}
@@ -204,13 +211,13 @@ export function Sidebar() {
         </Link>
       </div>
 
-      <button
+       <Button variant="ghost" size="icon"
         onClick={() => setCollapsed((v) => !v)}
         className="absolute -right-3 top-20 size-6 rounded-full bg-card border border-border shadow-soft grid place-items-center hover:bg-accent transition"
         aria-label="Toggle sidebar"
       >
         {collapsed ? <ChevronRight className="size-3.5" /> : <ChevronLeft className="size-3.5" />}
-      </button>
+       </Button>
     </aside>
   );
 }

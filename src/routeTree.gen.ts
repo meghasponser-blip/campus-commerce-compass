@@ -58,6 +58,7 @@ import { Route as AppSalesIndexRouteImport } from './routes/_app.sales.index'
 import { Route as AppSalesAgentsRouteImport } from './routes/_app.sales.agents'
 import { Route as AppSalesApplicationRouteImport } from './routes/_app.sales.application'
 import { Route as AppSalesApplicationsRouteImport } from './routes/_app.sales.applications'
+import { Route as AppSalesCallCenterRouteImport } from './routes/_app.sales.call-center'
 import { Route as AppSalesFinanceRouteImport } from './routes/_app.sales.finance'
 import { Route as AppSalesFormBuilderRouteImport } from './routes/_app.sales.form-builder'
 import { Route as AppSalesLeadsRouteImport } from './routes/_app.sales.leads'
@@ -66,6 +67,12 @@ import { Route as AppPlacementRoleSectionRouteImport } from './routes/_app.place
 import { Route as AppSalesAgentsIndexRouteImport } from './routes/_app.sales.agents.index'
 import { Route as AppSalesAgentsIdRouteImport } from './routes/_app.sales.agents.$id'
 import { Route as AppSalesApplicationsIdRouteImport } from './routes/_app.sales.applications.$id'
+import { Route as AppSalesCallCenterIndexRouteImport } from './routes/_app.sales.call-center.index'
+import { Route as AppSalesCallCenterAgentsRouteImport } from './routes/_app.sales.call-center.agents'
+import { Route as AppSalesCallCenterLeadsRouteImport } from './routes/_app.sales.call-center.leads'
+import { Route as AppSalesCallCenterMyLeadsRouteImport } from './routes/_app.sales.call-center.my-leads'
+import { Route as AppSalesCallCenterReportsRouteImport } from './routes/_app.sales.call-center.reports'
+import { Route as AppSalesCallCenterUploadRouteImport } from './routes/_app.sales.call-center.upload'
 import { Route as AppPlacementRoleSectionIdRouteImport } from './routes/_app.placement.$role.$section.$id'
 
 const AppRoute = AppRouteImport.update({
@@ -314,6 +321,11 @@ const AppSalesApplicationsRoute = AppSalesApplicationsRouteImport.update({
   path: '/applications',
   getParentRoute: () => AppSalesRoute,
 } as any)
+const AppSalesCallCenterRoute = AppSalesCallCenterRouteImport.update({
+  id: '/call-center',
+  path: '/call-center',
+  getParentRoute: () => AppSalesRoute,
+} as any)
 const AppSalesFinanceRoute = AppSalesFinanceRouteImport.update({
   id: '/finance',
   path: '/finance',
@@ -354,6 +366,40 @@ const AppSalesApplicationsIdRoute = AppSalesApplicationsIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => AppSalesApplicationsRoute,
 } as any)
+const AppSalesCallCenterIndexRoute = AppSalesCallCenterIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppSalesCallCenterRoute,
+} as any)
+const AppSalesCallCenterAgentsRoute =
+  AppSalesCallCenterAgentsRouteImport.update({
+    id: '/agents',
+    path: '/agents',
+    getParentRoute: () => AppSalesCallCenterRoute,
+  } as any)
+const AppSalesCallCenterLeadsRoute = AppSalesCallCenterLeadsRouteImport.update({
+  id: '/leads',
+  path: '/leads',
+  getParentRoute: () => AppSalesCallCenterRoute,
+} as any)
+const AppSalesCallCenterMyLeadsRoute =
+  AppSalesCallCenterMyLeadsRouteImport.update({
+    id: '/my-leads',
+    path: '/my-leads',
+    getParentRoute: () => AppSalesCallCenterRoute,
+  } as any)
+const AppSalesCallCenterReportsRoute =
+  AppSalesCallCenterReportsRouteImport.update({
+    id: '/reports',
+    path: '/reports',
+    getParentRoute: () => AppSalesCallCenterRoute,
+  } as any)
+const AppSalesCallCenterUploadRoute =
+  AppSalesCallCenterUploadRouteImport.update({
+    id: '/upload',
+    path: '/upload',
+    getParentRoute: () => AppSalesCallCenterRoute,
+  } as any)
 const AppPlacementRoleSectionIdRoute =
   AppPlacementRoleSectionIdRouteImport.update({
     id: '/$id',
@@ -405,6 +451,7 @@ export interface FileRoutesByFullPath {
   '/sales/agents': typeof AppSalesAgentsRouteWithChildren
   '/sales/application': typeof AppSalesApplicationRoute
   '/sales/applications': typeof AppSalesApplicationsRouteWithChildren
+  '/sales/call-center': typeof AppSalesCallCenterRouteWithChildren
   '/sales/finance': typeof AppSalesFinanceRoute
   '/sales/form-builder': typeof AppSalesFormBuilderRoute
   '/sales/leads': typeof AppSalesLeadsRoute
@@ -416,8 +463,14 @@ export interface FileRoutesByFullPath {
   '/placement/$role/$section': typeof AppPlacementRoleSectionRouteWithChildren
   '/sales/agents/$id': typeof AppSalesAgentsIdRoute
   '/sales/applications/$id': typeof AppSalesApplicationsIdRoute
+  '/sales/call-center/agents': typeof AppSalesCallCenterAgentsRoute
+  '/sales/call-center/leads': typeof AppSalesCallCenterLeadsRoute
+  '/sales/call-center/my-leads': typeof AppSalesCallCenterMyLeadsRoute
+  '/sales/call-center/reports': typeof AppSalesCallCenterReportsRoute
+  '/sales/call-center/upload': typeof AppSalesCallCenterUploadRoute
   '/placement/$role/': typeof AppPlacementRoleIndexRoute
   '/sales/agents/': typeof AppSalesAgentsIndexRoute
+  '/sales/call-center/': typeof AppSalesCallCenterIndexRoute
   '/placement/$role/$section/$id': typeof AppPlacementRoleSectionIdRoute
 }
 export interface FileRoutesByTo {
@@ -469,8 +522,14 @@ export interface FileRoutesByTo {
   '/placement/$role/$section': typeof AppPlacementRoleSectionRouteWithChildren
   '/sales/agents/$id': typeof AppSalesAgentsIdRoute
   '/sales/applications/$id': typeof AppSalesApplicationsIdRoute
+  '/sales/call-center/agents': typeof AppSalesCallCenterAgentsRoute
+  '/sales/call-center/leads': typeof AppSalesCallCenterLeadsRoute
+  '/sales/call-center/my-leads': typeof AppSalesCallCenterMyLeadsRoute
+  '/sales/call-center/reports': typeof AppSalesCallCenterReportsRoute
+  '/sales/call-center/upload': typeof AppSalesCallCenterUploadRoute
   '/placement/$role': typeof AppPlacementRoleIndexRoute
   '/sales/agents': typeof AppSalesAgentsIndexRoute
+  '/sales/call-center': typeof AppSalesCallCenterIndexRoute
   '/placement/$role/$section/$id': typeof AppPlacementRoleSectionIdRoute
 }
 export interface FileRoutesById {
@@ -519,6 +578,7 @@ export interface FileRoutesById {
   '/_app/sales/agents': typeof AppSalesAgentsRouteWithChildren
   '/_app/sales/application': typeof AppSalesApplicationRoute
   '/_app/sales/applications': typeof AppSalesApplicationsRouteWithChildren
+  '/_app/sales/call-center': typeof AppSalesCallCenterRouteWithChildren
   '/_app/sales/finance': typeof AppSalesFinanceRoute
   '/_app/sales/form-builder': typeof AppSalesFormBuilderRoute
   '/_app/sales/leads': typeof AppSalesLeadsRoute
@@ -530,8 +590,14 @@ export interface FileRoutesById {
   '/_app/placement/$role/$section': typeof AppPlacementRoleSectionRouteWithChildren
   '/_app/sales/agents/$id': typeof AppSalesAgentsIdRoute
   '/_app/sales/applications/$id': typeof AppSalesApplicationsIdRoute
+  '/_app/sales/call-center/agents': typeof AppSalesCallCenterAgentsRoute
+  '/_app/sales/call-center/leads': typeof AppSalesCallCenterLeadsRoute
+  '/_app/sales/call-center/my-leads': typeof AppSalesCallCenterMyLeadsRoute
+  '/_app/sales/call-center/reports': typeof AppSalesCallCenterReportsRoute
+  '/_app/sales/call-center/upload': typeof AppSalesCallCenterUploadRoute
   '/_app/placement/$role/': typeof AppPlacementRoleIndexRoute
   '/_app/sales/agents/': typeof AppSalesAgentsIndexRoute
+  '/_app/sales/call-center/': typeof AppSalesCallCenterIndexRoute
   '/_app/placement/$role/$section/$id': typeof AppPlacementRoleSectionIdRoute
 }
 export interface FileRouteTypes {
@@ -580,6 +646,7 @@ export interface FileRouteTypes {
     | '/sales/agents'
     | '/sales/application'
     | '/sales/applications'
+    | '/sales/call-center'
     | '/sales/finance'
     | '/sales/form-builder'
     | '/sales/leads'
@@ -591,8 +658,14 @@ export interface FileRouteTypes {
     | '/placement/$role/$section'
     | '/sales/agents/$id'
     | '/sales/applications/$id'
+    | '/sales/call-center/agents'
+    | '/sales/call-center/leads'
+    | '/sales/call-center/my-leads'
+    | '/sales/call-center/reports'
+    | '/sales/call-center/upload'
     | '/placement/$role/'
     | '/sales/agents/'
+    | '/sales/call-center/'
     | '/placement/$role/$section/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -644,8 +717,14 @@ export interface FileRouteTypes {
     | '/placement/$role/$section'
     | '/sales/agents/$id'
     | '/sales/applications/$id'
+    | '/sales/call-center/agents'
+    | '/sales/call-center/leads'
+    | '/sales/call-center/my-leads'
+    | '/sales/call-center/reports'
+    | '/sales/call-center/upload'
     | '/placement/$role'
     | '/sales/agents'
+    | '/sales/call-center'
     | '/placement/$role/$section/$id'
   id:
     | '__root__'
@@ -693,6 +772,7 @@ export interface FileRouteTypes {
     | '/_app/sales/agents'
     | '/_app/sales/application'
     | '/_app/sales/applications'
+    | '/_app/sales/call-center'
     | '/_app/sales/finance'
     | '/_app/sales/form-builder'
     | '/_app/sales/leads'
@@ -704,8 +784,14 @@ export interface FileRouteTypes {
     | '/_app/placement/$role/$section'
     | '/_app/sales/agents/$id'
     | '/_app/sales/applications/$id'
+    | '/_app/sales/call-center/agents'
+    | '/_app/sales/call-center/leads'
+    | '/_app/sales/call-center/my-leads'
+    | '/_app/sales/call-center/reports'
+    | '/_app/sales/call-center/upload'
     | '/_app/placement/$role/'
     | '/_app/sales/agents/'
+    | '/_app/sales/call-center/'
     | '/_app/placement/$role/$section/$id'
   fileRoutesById: FileRoutesById
 }
@@ -1059,6 +1145,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppSalesApplicationsRouteImport
       parentRoute: typeof AppSalesRoute
     }
+    '/_app/sales/call-center': {
+      id: '/_app/sales/call-center'
+      path: '/call-center'
+      fullPath: '/sales/call-center'
+      preLoaderRoute: typeof AppSalesCallCenterRouteImport
+      parentRoute: typeof AppSalesRoute
+    }
     '/_app/sales/finance': {
       id: '/_app/sales/finance'
       path: '/finance'
@@ -1114,6 +1207,48 @@ declare module '@tanstack/react-router' {
       fullPath: '/sales/applications/$id'
       preLoaderRoute: typeof AppSalesApplicationsIdRouteImport
       parentRoute: typeof AppSalesApplicationsRoute
+    }
+    '/_app/sales/call-center/': {
+      id: '/_app/sales/call-center/'
+      path: '/'
+      fullPath: '/sales/call-center/'
+      preLoaderRoute: typeof AppSalesCallCenterIndexRouteImport
+      parentRoute: typeof AppSalesCallCenterRoute
+    }
+    '/_app/sales/call-center/agents': {
+      id: '/_app/sales/call-center/agents'
+      path: '/agents'
+      fullPath: '/sales/call-center/agents'
+      preLoaderRoute: typeof AppSalesCallCenterAgentsRouteImport
+      parentRoute: typeof AppSalesCallCenterRoute
+    }
+    '/_app/sales/call-center/leads': {
+      id: '/_app/sales/call-center/leads'
+      path: '/leads'
+      fullPath: '/sales/call-center/leads'
+      preLoaderRoute: typeof AppSalesCallCenterLeadsRouteImport
+      parentRoute: typeof AppSalesCallCenterRoute
+    }
+    '/_app/sales/call-center/my-leads': {
+      id: '/_app/sales/call-center/my-leads'
+      path: '/my-leads'
+      fullPath: '/sales/call-center/my-leads'
+      preLoaderRoute: typeof AppSalesCallCenterMyLeadsRouteImport
+      parentRoute: typeof AppSalesCallCenterRoute
+    }
+    '/_app/sales/call-center/reports': {
+      id: '/_app/sales/call-center/reports'
+      path: '/reports'
+      fullPath: '/sales/call-center/reports'
+      preLoaderRoute: typeof AppSalesCallCenterReportsRouteImport
+      parentRoute: typeof AppSalesCallCenterRoute
+    }
+    '/_app/sales/call-center/upload': {
+      id: '/_app/sales/call-center/upload'
+      path: '/upload'
+      fullPath: '/sales/call-center/upload'
+      preLoaderRoute: typeof AppSalesCallCenterUploadRouteImport
+      parentRoute: typeof AppSalesCallCenterRoute
     }
     '/_app/placement/$role/$section/$id': {
       id: '/_app/placement/$role/$section/$id'
@@ -1232,10 +1367,32 @@ const AppSalesApplicationsRouteChildren: AppSalesApplicationsRouteChildren = {
 const AppSalesApplicationsRouteWithChildren =
   AppSalesApplicationsRoute._addFileChildren(AppSalesApplicationsRouteChildren)
 
+interface AppSalesCallCenterRouteChildren {
+  AppSalesCallCenterAgentsRoute: typeof AppSalesCallCenterAgentsRoute
+  AppSalesCallCenterLeadsRoute: typeof AppSalesCallCenterLeadsRoute
+  AppSalesCallCenterMyLeadsRoute: typeof AppSalesCallCenterMyLeadsRoute
+  AppSalesCallCenterReportsRoute: typeof AppSalesCallCenterReportsRoute
+  AppSalesCallCenterUploadRoute: typeof AppSalesCallCenterUploadRoute
+  AppSalesCallCenterIndexRoute: typeof AppSalesCallCenterIndexRoute
+}
+
+const AppSalesCallCenterRouteChildren: AppSalesCallCenterRouteChildren = {
+  AppSalesCallCenterAgentsRoute: AppSalesCallCenterAgentsRoute,
+  AppSalesCallCenterLeadsRoute: AppSalesCallCenterLeadsRoute,
+  AppSalesCallCenterMyLeadsRoute: AppSalesCallCenterMyLeadsRoute,
+  AppSalesCallCenterReportsRoute: AppSalesCallCenterReportsRoute,
+  AppSalesCallCenterUploadRoute: AppSalesCallCenterUploadRoute,
+  AppSalesCallCenterIndexRoute: AppSalesCallCenterIndexRoute,
+}
+
+const AppSalesCallCenterRouteWithChildren =
+  AppSalesCallCenterRoute._addFileChildren(AppSalesCallCenterRouteChildren)
+
 interface AppSalesRouteChildren {
   AppSalesAgentsRoute: typeof AppSalesAgentsRouteWithChildren
   AppSalesApplicationRoute: typeof AppSalesApplicationRoute
   AppSalesApplicationsRoute: typeof AppSalesApplicationsRouteWithChildren
+  AppSalesCallCenterRoute: typeof AppSalesCallCenterRouteWithChildren
   AppSalesFinanceRoute: typeof AppSalesFinanceRoute
   AppSalesFormBuilderRoute: typeof AppSalesFormBuilderRoute
   AppSalesLeadsRoute: typeof AppSalesLeadsRoute
@@ -1246,6 +1403,7 @@ const AppSalesRouteChildren: AppSalesRouteChildren = {
   AppSalesAgentsRoute: AppSalesAgentsRouteWithChildren,
   AppSalesApplicationRoute: AppSalesApplicationRoute,
   AppSalesApplicationsRoute: AppSalesApplicationsRouteWithChildren,
+  AppSalesCallCenterRoute: AppSalesCallCenterRouteWithChildren,
   AppSalesFinanceRoute: AppSalesFinanceRoute,
   AppSalesFormBuilderRoute: AppSalesFormBuilderRoute,
   AppSalesLeadsRoute: AppSalesLeadsRoute,
