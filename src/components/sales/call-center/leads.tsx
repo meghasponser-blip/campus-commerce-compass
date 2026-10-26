@@ -43,7 +43,7 @@ export function AssignPage() {
     mutationFn: (v: { leadId: string; agentId: string | null }) => doAssign({ data: v }),
     onSuccess: () => {
       toast.success("Lead assigned");
-      qc.invalidateQueries({ queryKey: ["call-center", "leads"] });
+      qc.invalidateQueries({ queryKey: ["call-center"] });
     },
     onError: (e: Error) => toast.error(e.message),
   });
@@ -52,7 +52,7 @@ export function AssignPage() {
     mutationFn: (leadId: string) => doDelete({ data: { leadId } }),
     onSuccess: () => {
       toast.success("Lead deleted");
-      qc.invalidateQueries({ queryKey: ["call-center", "leads"] });
+      qc.invalidateQueries({ queryKey: ["call-center"] });
     },
     onError: (e: Error) => toast.error(e.message),
   });
@@ -61,7 +61,7 @@ export function AssignPage() {
     mutationFn: (agentId: string) => doAutoAssign({ data: { agentId } }),
     onSuccess: (r: { count: number }) => {
       toast.success(`Assigned ${r.count} lead${r.count === 1 ? "" : "s"}`);
-      qc.invalidateQueries({ queryKey: ["call-center", "leads"] });
+      qc.invalidateQueries({ queryKey: ["call-center"] });
     },
     onError: (e: Error) => toast.error(e.message),
   });
@@ -70,7 +70,7 @@ export function AssignPage() {
     mutationFn: (scope: "all" | "unassigned") => doClear({ data: { scope } }),
     onSuccess: (r: { count: number }) => {
       toast.success(`Deleted ${r.count} lead${r.count === 1 ? "" : "s"}`);
-      qc.invalidateQueries({ queryKey: ["call-center", "leads"] });
+      qc.invalidateQueries({ queryKey: ["call-center"] });
     },
     onError: (e: Error) => toast.error(e.message),
   });
